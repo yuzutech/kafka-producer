@@ -1,3 +1,57 @@
 = Kafka Producer
 
-Use the Java producer API to publish records to the Kafka cluster.
+Use the Java producer API to publish records to Kafka
+
+== Usage
+
+Clone and build the project:
+
+ $ git clone https://github.com/yuzutech/kafka-producer.git
+ cd kafka-producer
+ mvn clean package
+
+Run:
+
+ $ java -jar kafka-producer-all.jar samples/config/connector.properties
+
+[NOTE]
+====
+By default, this command will send the following JSON message 1000 times to a local Kafka `localhost:9092`.
+See below to configure the producer.
+```json
+{
+  "name": "iuzu",
+  "age_year": 3,
+  "race": "siberian",
+  "birth_date": "20130521"
+}
+```
+====
+
+== Configuration
+
+.connector.properties
+```sh
+# Kafka producer configuration <1>
+bootstrap.servers=localhost:9092
+acks=all
+retries=0
+batch.size=16384
+linger.ms=1
+buffer.memory=33554432
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=org.apache.kafka.common.serialization.StringSerializer
+
+# Name of a Kafka topic.
+producer.topic=lolcat
+
+# Path to a file.
+# Each line will produce a record that will be send `producer.num.records` times.
+# The path is relative to the connector.properties parent directory but you can also use an absolute path.
+producer.file=lolcat.json
+
+# Number of records to send (per line).
+# If your file contains 5 lines and producer.num.records = 100, you will effectively send 500 records.
+producer.num.records=1000
+```
+<1> See http://kafka.apache.org/documentation.html#producerconfigs for the complete documentation
