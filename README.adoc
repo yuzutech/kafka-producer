@@ -1,0 +1,3 @@
+= Kafka Producer
+
+Use the Java producer API to publish records to the Kafka cluster.
