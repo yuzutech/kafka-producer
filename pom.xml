@@ -78,8 +78,13 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
-          <finalName>kafka-connect-elasticsearch-all</finalName>
+          <finalName>kafka-producer-all</finalName>
           <appendAssemblyId>false</appendAssemblyId>
+          <archive>
+            <manifest>
+              <mainClass>org.yuzutech.kafka.producer.Producer</mainClass>
+            </manifest>
+          </archive>
         </configuration>
         <executions>
           <execution>
